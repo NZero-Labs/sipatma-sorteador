@@ -56,16 +56,16 @@ export default function App() {
           alt="Logo Amara"
           className="h-[100px] object-contain"
         />
-        {isFinal && (
+        {/* {isFinal && (
           <div className="flex flex-col text-[30px] text-center text-[#00953b]">
             <img
-              src="logo_topo.png"
+              src="logo_topo_end.png"
               alt="Logo sorteio conectado"
               className="h-[75px] mb-4 object-contain bg-transparent"
             />
             <span className="bg-[#C1D116] px-3">INTERSOLAR</span>
           </div>
-        )}
+        )} */}
       </header>
       <main
         className={cn(
@@ -75,18 +75,18 @@ export default function App() {
         )}
       >
         {name && (
-          <div className="w-full h-full flex flex-col items-center justify-center gap-10 p-10">
-            <p className="text-white font-bold text-[50px]">Parabéns!</p>
-            <Card className="w-full min-w-full overflow-hidden word flex flex-col items-center justify-center border-[#00953B] border-2">
-              <p className="text-[80px] text-wrap text-center break-all text-[#76BC21]">
+          <div className="w-full h-30 font-Lato flex flex-col items-center justify-center gap-5 p-10">
+            <p className="text-white font-bold text-[70px]">PARABÉNS!</p>
+            <Card className="w-fit px-6 overflow-hidden word flex flex-col items-center justify-center border-[#00953B] border-2">
+              <p className="text-[50px] text-wrap text-center break-all text-[#76BC21]">
                 {name?.name}
               </p>
-              <p className="text-[35px] break-all text-center font-bold text-[#C1D116]">
+              <p className="text-[25px] break-all text-center font-bold text-[#C1D116]">
                 {name?.corporation}
               </p>
             </Card>
-            <p className="border-b-2 text-white font-bold text-[50px]">
-              Você foi o vencedor do Sorteio!
+            <p className="border-b-2 text-white font-bold text-[30px]">
+              VOCÊ FOI O VENCEDOR DO SORTEIO!
             </p>
             <Actions
               names={names}
