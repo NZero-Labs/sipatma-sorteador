@@ -20,7 +20,7 @@ export default function App() {
   const [autoCounter, setAutoCounter] = useState(5);
 
   const randomizeName = () => {
-    let index = Math.floor(Math.random() * names.length);
+    const index = Math.floor(Math.random() * names.length);
     setIsFinal(false);
     setIsLoading(true);
     setShowEditor(false);
@@ -58,8 +58,12 @@ export default function App() {
         />
         {isFinal && (
           <div className="flex flex-col text-[30px] text-center text-[#00953b]">
-            PREMIAÇÃO
-            <span className="bg-[#C1D116] px-3">INTERSOLAR!</span>
+            <img
+              src="logo_topo.png"
+              alt="Logo sorteio conectado"
+              className="h-[75px] mb-4 object-contain bg-transparent"
+            />
+            <span className="bg-[#C1D116] px-3">INTERSOLAR</span>
           </div>
         )}
       </header>
@@ -67,7 +71,7 @@ export default function App() {
         className={cn(
           "flex flex-col items-center justify-center w-full h-full relative",
           (!isFinal || name) &&
-            "bg-gradient-to-r from-[#00953B] via-[#76BC21] to-[#C1D116]"
+          "bg-gradient-to-r from-[#00953B] via-[#76BC21] to-[#C1D116]"
         )}
       >
         {name && (
@@ -103,16 +107,20 @@ export default function App() {
           </>
         )}
         {showEditor && !isLoading && (
-          <div className="w-full h-full flex flex-col items-center justify-start p-5 gap-10">
-            <div className="flex flex-col text-[60px] font-normal text-center text-white tracking-wide">
-              PREMIAÇÃO
-              <span className="bg-[#C1D116] px-3">INTERSOLAR!</span>
+          <div className="w-full h-full flex flex-col items-center justify-center p-5 gap-10">
+            <div className="flex flex-col text-[60px] font-normal items-center text-center text-white tracking-wide">
+              <img
+                src="logo_topo.png"
+                alt="Logo sorteio conectado"
+                className="h-[200px] mb-4 object-contain bg-transparent"
+              />
+              <span className="bg-[#C1D116] px-3 text-[60px] w-fit">INTERSOLAR</span>
             </div>
-            <img
+            {/* <img
               src="banner.png"
               alt="banner premiação"
               className="object-cover w-[350px]"
-            />
+            /> */}
             <Actions
               names={names}
               setNames={setNames}
@@ -123,23 +131,28 @@ export default function App() {
       </main>
       <footer className="bg-white w-full h-[100px] flex items-center justify-around z-50 relative">
         <img
-          src="dah-logo.png"
-          alt="Logo DAH"
-          className="h-[48px] object-contain bg-transparent mix-blend-multiply"
-        />
-        <img
-          src="hoymiles-logo.png"
-          alt="Logo HOYMILES"
-          className="h-[50px] object-contain bg-transparent mix-blend-multiply"
-        />
-        <img
           src="sungrow-logo.png"
           alt="Logo SUNGROW"
           className="h-[50px] object-contain bg-transparent mix-blend-multiply"
         />
         <img
-          src="solis-logo.png"
-          alt="Logo SOLIS"
+          src="LOGO_LONGI_PNG.png"
+          alt="Logo Longi"
+          className="h-[70px] object-contain bg-transparent mix-blend-multiply"
+        />
+        <img
+          src="DMEGC_PNG.png"
+          alt="Logo DMEG"
+          className="h-[50px] object-contain bg-transparent mix-blend-multiply"
+        />
+        <img
+          src="logo_solar_group.png"
+          alt="Logo Solar Group"
+          className="h-[50px] object-contain bg-transparent mix-blend-multiply"
+        />
+        <img
+          src="hoymiles-logo.png"
+          alt="Logo HOYMILES"
           className="h-[50px] object-contain bg-transparent mix-blend-multiply"
         />
       </footer>

@@ -43,7 +43,7 @@ export default function Actions({
       />
       <Button
         variant="outline"
-        className="text-[#76BC21] hover:text-[#76BC21] text-[35px] w-[880px] font-medium h-fit"
+        className="text-[#76BC21] hover:text-[#76BC21] text-[35px] w-[880px] font-medium h-fit font-lato"
         onClick={() =>
           names.length > 0
             ? randomizeName()
