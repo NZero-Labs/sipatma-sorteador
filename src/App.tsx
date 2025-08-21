@@ -112,9 +112,9 @@ export default function App() {
               <img
                 src="logo_topo.png"
                 alt="Logo sorteio conectado"
-                className="h-[200px] mb-4 object-contain bg-transparent"
+                className="h-[12.5rem] mb-4 object-contain bg-transparent"
               />
-              <span className="bg-[#C1D116] px-3 text-[60px] w-fit">INTERSOLAR</span>
+              <span className="bg-[#C1D116] px-3 text-[3.75rem] w-fit">INTERSOLAR</span>
             </div>
             {/* <img
               src="banner.png"
