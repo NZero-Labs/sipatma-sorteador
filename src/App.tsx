@@ -108,13 +108,13 @@ export default function App() {
         )}
         {showEditor && !isLoading && (
           <div className="w-full h-full flex flex-col items-center justify-center p-5 gap-10">
-            <div className="flex flex-col text-[60px] font-normal items-center text-center text-white tracking-wide">
+            <div className="flex flex-col  justify-between font-normal items-center text-center text-white tracking-wide">
               <img
                 src="logo_topo.png"
                 alt="Logo sorteio conectado"
-                className="h-[12.5rem] mb-4 object-contain bg-transparent"
+                className="h-[16.5rem] mb-4 object-contain bg-transparent"
               />
-              <span className="bg-[#C1D116] px-3 text-[3.75rem] w-fit">INTERSOLAR</span>
+              <span className="bg-[#C1D116] px-3 text-[5.75rem] w-fit">INTERSOLAR</span>
             </div>
             {/* <img
               src="banner.png"
