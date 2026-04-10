@@ -38,11 +38,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { FileUploader } from "@/components/file-uploader";
-import { UploadIcon } from "lucide-react";
+import UploadIcon from "@/components/ui/upload-icon";
 
 interface CsvImporterProps
-  extends React.ComponentPropsWithoutRef<typeof DialogTrigger>,
-    ButtonProps {
+  extends React.ComponentPropsWithoutRef<typeof DialogTrigger>, ButtonProps {
   /**
    * Array of field mappings defining the imported data structure.
    * Each includes a label, value, and optional required flag.
@@ -103,12 +102,12 @@ export function CsvImporter({
           variant="outline"
           size="icon"
           className={cn(
-            "h-[70px] w-fit text-[#76BC21] hover:text-[#76BC21]",
-            className
+            "h-[70px] w-[70px] rounded-[15px] border-2 border-[#00953B] bg-[#00953B] hover:bg-[#00953B]/10",
+            className,
           )}
           {...props}
         >
-          <UploadIcon className=" h-[50px] w-[70px] font-medium" />
+          <UploadIcon />
         </Button>
       </DialogTrigger>
       {step === "upload" ? (
@@ -215,8 +214,7 @@ export function CsvImporter({
   );
 }
 
-interface PreviewTableHeadProps
-  extends React.ThHTMLAttributes<HTMLTableCellElement> {
+interface PreviewTableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
   field: { label: string; value: string; required?: boolean };
   onFieldChange: (props: { value: string; required?: boolean }) => void;
   onFieldToggle: (props: { value: string; checked: boolean }) => void;
@@ -292,12 +290,12 @@ function PreviewTableHead({
                             "mr-2 size-4",
                             currentFieldMapping === fm
                               ? "opacity-100"
-                              : "opacity-0"
+                              : "opacity-0",
                           )}
                         />
                         <span className="line-clamp-1">{fm}</span>
                       </CommandItem>
-                    )
+                    ),
                   )}
                 </CommandGroup>
               </CommandList>

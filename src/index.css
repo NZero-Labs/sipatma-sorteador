@@ -75,6 +75,32 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes spin-slow {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes spin-slow-center {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 5s linear infinite;
+}
+
+.animate-spin-slow-center {
+  animation: spin-slow-center 5s linear infinite;
+}
 html {
   font-family: Roboto, sans-serif;
 }
