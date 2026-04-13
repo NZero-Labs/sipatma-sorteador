@@ -19,7 +19,7 @@ export default function App() {
 
       <Header showSipatmaLogo={raffle.isFinal || raffle.isLoading} />
 
-      {isWinnerScreen ? (
+      {isWinnerScreen && raffle.name ? (
         <WinnerScreen
           name={raffle.name}
           names={raffle.names}

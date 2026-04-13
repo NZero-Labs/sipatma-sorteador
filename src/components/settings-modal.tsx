@@ -1,10 +1,9 @@
 "use client";
 import * as React from "react";
-import { ArrowLeftIcon, CaretSortIcon, CheckIcon, UploadIcon } from "@radix-ui/react-icons";
+import { ArrowLeftIcon, CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { CommandList } from "cmdk";
 import { X } from "lucide-react";
 import Dropzone from "react-dropzone";
-import { toast } from "sonner";
 
 import { cn } from "@/lib/utils";
 import { useParseCsv } from "@/hooks/use-parse-csv";
@@ -120,7 +119,7 @@ export function SettingsModal({
   };
 
   const handleImportComplete = () => {
-    const sanitizedData = getSanitizedData({ data });
+    const sanitizedData = getSanitizedData({ data }) as Array<{ name?: unknown; corporation?: unknown }>;
     const formattedData: DataProps = sanitizedData
       .map((item) => ({
         name: String(item.name ?? ""),
