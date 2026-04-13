@@ -52,15 +52,9 @@ export default function Actions({
             boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
           }}
           onClick={() => {
-            // #region agent log
-            console.log('[DEBUG H1] Button clicked', { namesLength: names.length, timestamp: Date.now() });
-            // #endregion
             if (names.length > 0) {
               randomizeName();
             } else {
-              // #region agent log
-              console.log('[DEBUG H1] Toast called', { timestamp: Date.now() });
-              // #endregion
               showToast("Por favor forneça uma lista de nomes", "error", 8000);
             }
           }}

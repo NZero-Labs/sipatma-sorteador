@@ -3,10 +3,6 @@ import { Toaster as Sonner } from "sonner"
 type ToasterProps = React.ComponentProps<typeof Sonner>
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  // #region agent log
-  console.log('[DEBUG H8] Toaster rendering', { timestamp: Date.now() });
-  // #endregion
-
   return (
     <Sonner
       theme="light"

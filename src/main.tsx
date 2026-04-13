@@ -3,14 +3,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { ToastProvider } from "@/components/ui/simple-toast";
 
-// #region agent log
-console.log('[DEBUG H4] App initializing', { timestamp: Date.now() });
-// #endregion
-
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
   <ToastProvider>
     <App />
   </ToastProvider>
-  // </StrictMode>
 );

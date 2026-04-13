@@ -11,10 +11,6 @@ export default function App() {
   const raffle = useRaffle();
   const isWinnerScreen = raffle.name && raffle.isFinal && !raffle.isLoading;
 
-  // #region agent log
-  console.log('[DEBUG H2] App render', { isWinnerScreen: !!isWinnerScreen, showEditor: raffle.showEditor, isLoading: raffle.isLoading, timestamp: Date.now() });
-  // #endregion
-
   return (
     <>
       {raffle.isFinal && !raffle.cancelAnimation && (

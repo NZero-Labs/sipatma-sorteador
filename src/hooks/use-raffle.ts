@@ -81,9 +81,6 @@ export function useRaffle(): UseRaffleReturn {
   }, []);
 
   useEventListener("visibilitychange" as keyof WindowEventMap, () => {
-    // #region agent log
-    console.log('[DEBUG H3] Visibility changed', { visibilityState: document.visibilityState, timestamp: Date.now() });
-    // #endregion
     if (document.visibilityState === "visible") {
       setCancelAnimation(false);
     } else {

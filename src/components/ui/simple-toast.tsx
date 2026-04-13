@@ -28,18 +28,12 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   const showToast = useCallback(
     (message: string, type: Toast["type"] = "error", duration = 8000) => {
       const id = `toast-${Date.now()}`;
-      // #region agent log
-      console.log("[DEBUG TOAST] showToast called", { id, message, type, duration, timestamp: Date.now() });
-      // #endregion
       setToasts((prev) => [...prev, { id, message, type, duration }]);
     },
     []
   );
 
   const removeToast = useCallback((id: string) => {
-    // #region agent log
-    console.log("[DEBUG TOAST] removeToast called", { id, timestamp: Date.now() });
-    // #endregion
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
@@ -63,22 +57,11 @@ function ToastItem({
   onRemove: (id: string) => void;
 }) {
   useEffect(() => {
-    // #region agent log
-    console.log("[DEBUG TOAST] ToastItem mounted, setting timer", { id: toast.id, duration: toast.duration, timestamp: Date.now() });
-    // #endregion
     const timer = setTimeout(() => {
-      // #region agent log
-      console.log("[DEBUG TOAST] Timer expired, removing toast", { id: toast.id, timestamp: Date.now() });
-      // #endregion
       onRemove(toast.id);
     }, toast.duration);
 
-    return () => {
-      // #region agent log
-      console.log("[DEBUG TOAST] ToastItem cleanup", { id: toast.id, timestamp: Date.now() });
-      // #endregion
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [toast.id, toast.duration, onRemove]);
 
   const bgColor =
