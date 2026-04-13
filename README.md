@@ -1,50 +1,83 @@
-# React + TypeScript + Vite
+# Sorteador de Nomes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação de sorteio de nomes para eventos, desenvolvida com React + TypeScript + Vite.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Importação de participantes via CSV
+- Sorteio aleatório com animação de contagem regressiva
+- Tela de vencedor com efeito de fogos de artifício
+- Remoção automática do vencedor da lista para próximos sorteios
 
-## Expanding the ESLint configuration
+## Estrutura do Projeto
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+src/
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx      # Cabeçalho com logos
+│   │   └── Footer.tsx      # Rodapé com informações do evento
+│   ├── screens/
+│   │   ├── WinnerScreen.tsx   # Tela de exibição do vencedor
+│   │   ├── LoadingScreen.tsx  # Tela de contagem regressiva
+│   │   └── EditorScreen.tsx   # Tela inicial de configuração
+│   ├── ui/                    # Componentes de UI reutilizáveis
+│   ├── actions.tsx            # Botões de ação do sorteio
+│   ├── csv-importer.tsx       # Importador de CSV
+│   └── file-uploader.tsx      # Upload de arquivos
+├── hooks/
+│   ├── use-raffle.ts          # Lógica de estado do sorteio
+│   ├── use-event-listener.ts  # Hook para eventos do DOM
+│   └── use-parse-csv.ts       # Parser de CSV
+├── types/
+│   └── index.ts               # Tipos compartilhados
+├── lib/
+│   └── utils.ts               # Utilitários
+├── App.tsx                    # Componente principal
+└── main.tsx                   # Entry point
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Como Usar
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### Instalação
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+yarn install
 ```
+
+### Desenvolvimento
+
+```bash
+yarn dev
+```
+
+### Build
+
+```bash
+yarn build
+```
+
+## Importação de Participantes
+
+1. Clique no botão de upload na tela inicial
+2. Selecione um arquivo CSV com as colunas:
+   - `name` (obrigatório): Nome do participante
+   - `corporation` (opcional): Empresa do participante
+3. Mapeie os campos do CSV para os campos esperados
+4. Clique em "Importar"
+
+## Realizando o Sorteio
+
+1. Após importar os participantes, clique em "SORTEAR VENCEDOR!"
+2. Aguarde a contagem regressiva de 5 segundos
+3. O vencedor será exibido com efeito de fogos de artifício
+4. Para sortear novamente, clique em "SORTEAR NOVAMENTE"
+
+## Tecnologias
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- react-canvas-confetti (efeitos de fogos)
+- Radix UI (componentes acessíveis)

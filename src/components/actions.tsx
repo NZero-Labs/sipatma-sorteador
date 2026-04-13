@@ -1,4 +1,4 @@
-import { DataProps } from "@/App";
+import type { DataProps } from "@/types";
 import { CsvImporter } from "@/components/csv-importer";
 import { toast } from "sonner";
 
