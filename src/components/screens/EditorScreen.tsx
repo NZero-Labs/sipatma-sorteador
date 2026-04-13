@@ -1,22 +1,38 @@
+import { useState } from "react";
 import Actions from "@/components/actions";
+import { SettingsIcon } from "@/components/ui/settings-icon";
+import { SettingsModal } from "@/components/settings-modal";
 import type { DataProps } from "@/types";
 
 interface EditorScreenProps {
   names: DataProps;
   setNames: React.Dispatch<React.SetStateAction<DataProps>>;
   randomizeName: () => void;
+  fileName: string | null;
+  setFileName: (name: string | null) => void;
+  totalPrizes: number;
+  setTotalPrizes: (value: number) => void;
+  setPrizesRemaining: (value: number) => void;
 }
 
 export function EditorScreen({
   names,
   setNames,
   randomizeName,
+  fileName,
+  setFileName,
+  totalPrizes,
+  setTotalPrizes,
+  setPrizesRemaining,
 }: EditorScreenProps) {
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [settingsHovered, setSettingsHovered] = useState(false);
+
   return (
     <main
       className="flex flex-col items-center justify-center w-full flex-1 relative overflow-hidden"
       style={{
-        backgroundImage: "url('loading-background.png')",
+        backgroundImage: "url('background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -57,12 +73,38 @@ export function EditorScreen({
           />
         </div>
 
-        <Actions
-          names={names}
-          setNames={setNames}
-          randomizeName={randomizeName}
-        />
+        <div className="flex flex-col items-center gap-2">
+          <Actions names={names} randomizeName={randomizeName} />
+          {fileName && (
+            <span
+              className="text-[16px] text-center"
+              style={{ color: "#575756", fontFamily: "Lato" }}
+            >
+              {fileName}
+            </span>
+          )}
+        </div>
       </div>
+
+      <button
+        className="absolute bottom-8 right-8 transition-all hover:scale-105 active:scale-95 cursor-pointer z-20"
+        onClick={() => setSettingsOpen(true)}
+        onMouseEnter={() => setSettingsHovered(true)}
+        onMouseLeave={() => setSettingsHovered(false)}
+        aria-label="Configurações"
+      >
+        <SettingsIcon size={70} hovered={settingsHovered} />
+      </button>
+
+      <SettingsModal
+        open={settingsOpen}
+        onOpenChange={setSettingsOpen}
+        totalPrizes={totalPrizes}
+        setTotalPrizes={setTotalPrizes}
+        setNames={setNames}
+        setFileName={setFileName}
+        setPrizesRemaining={setPrizesRemaining}
+      />
     </main>
   );
 }

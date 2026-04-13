@@ -1,19 +1,29 @@
+import { useState } from "react";
 import Actions from "@/components/actions";
+import { HistoryIcon } from "@/components/ui/history-icon";
+import { HistoryModal } from "@/components/history-modal";
 import type { DataProps, Participant } from "@/types";
 
 interface WinnerScreenProps {
   name: Participant;
   names: DataProps;
-  setNames: React.Dispatch<React.SetStateAction<DataProps>>;
   randomizeName: () => void;
+  prizesRemaining: number;
+  winners: Participant[];
+  onReset: () => void;
 }
 
 export function WinnerScreen({
   name,
   names,
-  setNames,
   randomizeName,
+  prizesRemaining,
+  winners,
+  onReset,
 }: WinnerScreenProps) {
+  const [historyOpen, setHistoryOpen] = useState(false);
+  const [historyHovered, setHistoryHovered] = useState(false);
+
   return (
     <main
       className="flex flex-col items-center justify-center w-full flex-1 relative overflow-hidden"
@@ -23,13 +33,7 @@ export function WinnerScreen({
         backgroundPosition: "center",
       }}
     >
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(0deg, rgba(115, 115, 115, 0.05) 0%, rgba(140, 140, 140, 0.1) 42%, rgba(166, 166, 166, 0.15) 64%, rgba(217, 217, 217, 0.5) 98%)",
-        }}
-      />
+      <div className="absolute inset-0" />
 
       <div className="flex-1 flex flex-col items-center justify-center z-10 relative px-8">
         <p
@@ -73,15 +77,68 @@ export function WinnerScreen({
           </p>
         </div>
 
-        <div className="mt-8">
-          <Actions
-            names={names}
-            setNames={setNames}
-            randomizeName={randomizeName}
-            isNewChance={true}
-          />
+        <div className="mt-8 flex flex-col items-center gap-2">
+          {prizesRemaining > 0 ? (
+            <>
+              <Actions
+                names={names}
+                randomizeName={randomizeName}
+                isNewChance={true}
+                prizesRemaining={prizesRemaining}
+              />
+              <span
+                className="text-[20px] font-bold"
+                style={{ color: "#575756", fontFamily: "Lato" }}
+              >
+                {prizesRemaining} {prizesRemaining === 1 ? "prêmio restante" : "prêmios restantes"}
+              </span>
+            </>
+          ) : (
+            <>
+              <span
+                className="text-[20px] font-bold mb-4"
+                style={{ color: "#6F47E5", fontFamily: "Lato" }}
+              >
+                Todos os prêmios foram sorteados!
+              </span>
+              <button
+                onClick={onReset}
+                className="flex items-center justify-center transition-all hover:opacity-90"
+                style={{
+                  width: "356px",
+                  height: "50px",
+                  backgroundColor: "#00953B",
+                  borderRadius: "44px",
+                }}
+              >
+                <span
+                  className="text-white capitalize"
+                  style={{ fontSize: "25px", fontFamily: "Lato" }}
+                >
+                  Novo Sorteio
+                </span>
+              </button>
+            </>
+          )}
         </div>
       </div>
+
+      {/* Botão de histórico */}
+      <button
+        className="absolute bottom-8 right-8 transition-all hover:scale-105 active:scale-95 cursor-pointer z-20"
+        onClick={() => setHistoryOpen(true)}
+        onMouseEnter={() => setHistoryHovered(true)}
+        onMouseLeave={() => setHistoryHovered(false)}
+        aria-label="Histórico de sorteios"
+      >
+        <HistoryIcon size={70} hovered={historyHovered} />
+      </button>
+
+      <HistoryModal
+        open={historyOpen}
+        onOpenChange={setHistoryOpen}
+        winners={winners}
+      />
     </main>
   );
 }

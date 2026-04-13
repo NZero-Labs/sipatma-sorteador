@@ -11,6 +11,10 @@ export default function App() {
   const raffle = useRaffle();
   const isWinnerScreen = raffle.name && raffle.isFinal && !raffle.isLoading;
 
+  // #region agent log
+  console.log('[DEBUG H2] App render', { isWinnerScreen: !!isWinnerScreen, showEditor: raffle.showEditor, isLoading: raffle.isLoading, timestamp: Date.now() });
+  // #endregion
+
   return (
     <>
       {raffle.isFinal && !raffle.cancelAnimation && (
@@ -23,8 +27,10 @@ export default function App() {
         <WinnerScreen
           name={raffle.name}
           names={raffle.names}
-          setNames={raffle.setNames}
           randomizeName={raffle.randomizeName}
+          prizesRemaining={raffle.prizesRemaining}
+          winners={raffle.winners}
+          onReset={raffle.resetRaffle}
         />
       ) : (
         <>
@@ -36,6 +42,11 @@ export default function App() {
               names={raffle.names}
               setNames={raffle.setNames}
               randomizeName={raffle.randomizeName}
+              fileName={raffle.fileName}
+              setFileName={raffle.setFileName}
+              totalPrizes={raffle.totalPrizes}
+              setTotalPrizes={raffle.setTotalPrizes}
+              setPrizesRemaining={raffle.setPrizesRemaining}
             />
           )}
         </>

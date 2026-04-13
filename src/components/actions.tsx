@@ -1,62 +1,45 @@
 import type { DataProps } from "@/types";
-import { CsvImporter } from "@/components/csv-importer";
-import { toast } from "sonner";
+import { useToast } from "@/components/ui/simple-toast";
 
 interface ActionsProps {
   names: DataProps;
-  setNames: React.Dispatch<React.SetStateAction<DataProps>>;
   randomizeName: () => void;
   isNewChance?: boolean;
+  prizesRemaining?: number;
 }
 
 export default function Actions({
   names,
-  setNames,
   randomizeName,
   isNewChance = false,
+  prizesRemaining,
 }: ActionsProps) {
+  const { showToast } = useToast();
+
   return (
     <div className="flex items-center justify-center gap-4">
-      {!isNewChance && (
-        <CsvImporter
-          fields={[
-            { label: "Name", value: "name", required: true },
-            { label: "Empresa", value: "corporation", required: false },
-          ]}
-          onImport={(parsedData) => {
-            const formattedData: DataProps = parsedData
-              .map((item) => ({
-                name: String(item.name ?? ""),
-                corporation: String(item.corporation ?? ""),
-              }))
-              .filter(function (item, pos, self) {
-                return (
-                  self.findIndex(
-                    (itemSelf) =>
-                      itemSelf.name === item.name &&
-                      item.corporation === itemSelf.corporation,
-                  ) == pos
-                );
-              });
-
-            setNames((prev) => [...prev, ...formattedData]);
-          }}
-        />
-      )}
       {isNewChance ? (
         <button
           className="transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          onClick={() =>
-            names.length > 0
-              ? randomizeName()
-              : toast.error("Por favor forneça uma lista de nomes")
-          }
+          onClick={() => {
+            if (names.length > 0 && prizesRemaining !== undefined && prizesRemaining > 0) {
+              randomizeName();
+            } else {
+              showToast(
+                prizesRemaining === 0
+                  ? "Todos os prêmios já foram sorteados"
+                  : "Por favor forneça uma lista de nomes",
+                "error",
+                8000
+              );
+            }
+          }}
         >
           <span
             className="font-bold text-[25px] text-center uppercase underline"
             style={{ color: "#00953B", fontFamily: "Lato", lineHeight: "2.6em" }}
           >
-            SORTEAR NOVAMENTE{names.length > 0 && ` (${names.length})`}
+            SORTEAR NOVAMENTE
           </span>
         </button>
       ) : (
@@ -68,17 +51,25 @@ export default function Actions({
             height: "70px",
             boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)",
           }}
-          onClick={() =>
-            names.length > 0
-              ? randomizeName()
-              : toast.error("Por favor forneça uma lista de nomes")
-          }
+          onClick={() => {
+            // #region agent log
+            console.log('[DEBUG H1] Button clicked', { namesLength: names.length, timestamp: Date.now() });
+            // #endregion
+            if (names.length > 0) {
+              randomizeName();
+            } else {
+              // #region agent log
+              console.log('[DEBUG H1] Toast called', { timestamp: Date.now() });
+              // #endregion
+              showToast("Por favor forneça uma lista de nomes", "error", 8000);
+            }
+          }}
         >
           <span
             className="text-white font-bold text-[35px] text-center uppercase"
             style={{ fontFamily: "Lato", lineHeight: "1em" }}
           >
-            SORTEAR VENCEDOR!{names.length > 0 && ` (${names.length})`}
+            SORTEAR VENCEDOR!
           </span>
         </button>
       )}

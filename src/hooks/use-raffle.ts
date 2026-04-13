@@ -13,7 +13,15 @@ interface UseRaffleReturn {
   cancelAnimation: boolean;
   isLoading: boolean;
   autoCounter: number;
+  totalPrizes: number;
+  setTotalPrizes: (value: number) => void;
+  prizesRemaining: number;
+  setPrizesRemaining: (value: number) => void;
+  fileName: string | null;
+  setFileName: (name: string | null) => void;
+  winners: Participant[];
   randomizeName: () => void;
+  resetRaffle: () => void;
 }
 
 export function useRaffle(): UseRaffleReturn {
@@ -24,6 +32,10 @@ export function useRaffle(): UseRaffleReturn {
   const [cancelAnimation, setCancelAnimation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [autoCounter, setAutoCounter] = useState(COUNTDOWN_DURATION);
+  const [totalPrizes, setTotalPrizes] = useState(1);
+  const [prizesRemaining, setPrizesRemaining] = useState(1);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const [winners, setWinners] = useState<Participant[]>([]);
 
   const randomizeName = useCallback(() => {
     const index = Math.floor(Math.random() * names.length);
@@ -38,7 +50,9 @@ export function useRaffle(): UseRaffleReturn {
     }, 1000);
 
     setTimeout(() => {
-      setName(names[index]);
+      const winner = names[index];
+      setName(winner);
+      setWinners((prev) => [...prev, winner]);
       setIsFinal(true);
       setIsLoading(false);
       clearInterval(autoCounterInterval);
@@ -47,10 +61,29 @@ export function useRaffle(): UseRaffleReturn {
       const newNames = [...names];
       newNames.splice(index, 1);
       setNames(newNames);
+
+      setPrizesRemaining((prev) => Math.max(0, prev - 1));
     }, COUNTDOWN_DURATION * 1000);
   }, [names]);
 
+  const resetRaffle = useCallback(() => {
+    setName(undefined);
+    setNames([]);
+    setShowEditor(true);
+    setIsFinal(false);
+    setCancelAnimation(false);
+    setIsLoading(false);
+    setAutoCounter(COUNTDOWN_DURATION);
+    setTotalPrizes(1);
+    setPrizesRemaining(1);
+    setFileName(null);
+    setWinners([]);
+  }, []);
+
   useEventListener("visibilitychange" as keyof WindowEventMap, () => {
+    // #region agent log
+    console.log('[DEBUG H3] Visibility changed', { visibilityState: document.visibilityState, timestamp: Date.now() });
+    // #endregion
     if (document.visibilityState === "visible") {
       setCancelAnimation(false);
     } else {
@@ -67,6 +100,14 @@ export function useRaffle(): UseRaffleReturn {
     cancelAnimation,
     isLoading,
     autoCounter,
+    totalPrizes,
+    setTotalPrizes,
+    prizesRemaining,
+    setPrizesRemaining,
+    fileName,
+    setFileName,
+    winners,
     randomizeName,
+    resetRaffle,
   };
 }
