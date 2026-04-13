@@ -12,7 +12,13 @@ export function LoadingScreen({ autoCounter }: LoadingScreenProps) {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(0deg, rgba(115, 115, 115, 0.05) 0%, rgba(140, 140, 140, 0.1) 42%, rgba(166, 166, 166, 0.15) 64%, rgba(217, 217, 217, 0.5) 98%)",
+        }}
+      />
 
       <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full z-10">
         <div className="relative flex items-center justify-center w-[400px] h-[400px]">

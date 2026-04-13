@@ -52,7 +52,7 @@ export function HistoryModal({
         </div>
 
         {/* Conteúdo */}
-        <div className="px-[25px] py-6 flex flex-col gap-4">
+        <div className="px-[25px] py-4 flex flex-col gap-3">
           {winners.length === 0 ? (
             <p
               className="text-center py-8"
@@ -62,25 +62,29 @@ export function HistoryModal({
             </p>
           ) : (
             <div
-              className="flex flex-col gap-2 max-h-[400px] overflow-y-auto"
-              style={{ scrollbarWidth: "thin" }}
+              className="flex flex-col gap-1"
+              style={{
+                maxHeight: "calc(90vh - 180px)",
+                overflowY: winners.length > 10 ? "auto" : "visible",
+                scrollbarWidth: "thin",
+              }}
             >
               {winners.map((winner, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-4 rounded-lg"
+                  className="flex items-center justify-between px-3 py-2 rounded-lg"
                   style={{
                     backgroundColor: "rgba(0, 149, 59, 0.05)",
                     border: "1px solid #00953B",
                   }}
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
                     <span
-                      className="flex items-center justify-center w-10 h-10 rounded-full font-bold"
+                      className="flex items-center justify-center w-8 h-8 rounded-full font-bold flex-shrink-0"
                       style={{
                         backgroundColor: "#00953B",
                         color: "#FFFFFF",
-                        fontSize: "18px",
+                        fontSize: "14px",
                       }}
                     >
                       {index + 1}
@@ -88,13 +92,13 @@ export function HistoryModal({
                     <div className="flex flex-col">
                       <span
                         className="font-bold"
-                        style={{ fontSize: "20px", color: "#575756" }}
+                        style={{ fontSize: "16px", color: "#575756" }}
                       >
                         {winner.name}
                       </span>
                       {winner.corporation && (
                         <span
-                          style={{ fontSize: "14px", color: "#575756" }}
+                          style={{ fontSize: "12px", color: "#575756" }}
                         >
                           {winner.corporation}
                         </span>
@@ -108,7 +112,7 @@ export function HistoryModal({
         </div>
 
         {/* Footer com botão */}
-        <div className="flex items-center justify-center px-[25px] pb-[25px]">
+        <div className="flex items-center justify-center px-[25px] pb-4">
           <button
             onClick={() => onOpenChange(false)}
             className="flex items-center justify-center transition-all hover:opacity-90"
