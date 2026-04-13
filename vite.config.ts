@@ -9,5 +9,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: process.env.NODE_ENV === "development" ? undefined : "/sorteador-de-nomes",
+  base: process.env.NODE_ENV === "development" ? undefined : "/sipatma-sorteador",
 });
