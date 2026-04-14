@@ -138,8 +138,7 @@ export function CsvImporter({
             <DialogHeader className="flex-1">
               <DialogTitle>Mapear Campos</DialogTitle>
               <DialogDescription>
-                Mapear campos onde determinará qual o nome e empresa do
-                concorrente
+                Associe os campos da relação:
               </DialogDescription>
             </DialogHeader>
             <Button

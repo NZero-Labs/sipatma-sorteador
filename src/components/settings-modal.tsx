@@ -45,7 +45,7 @@ interface SettingsModalProps {
 
 const CSV_FIELDS = [
   { label: "Name", value: "name", required: true },
-  { label: "Empresa", value: "corporation", required: false },
+  { label: "Unidade", value: "corporation", required: false },
 ];
 
 function CustomUploadIcon() {
@@ -86,7 +86,9 @@ export function SettingsModal({
 }: SettingsModalProps) {
   const [step, setStep] = React.useState<"settings" | "map">("settings");
   const [localPrizes, setLocalPrizes] = React.useState(totalPrizes);
-  const [pendingFileName, setPendingFileName] = React.useState<string | null>(null);
+  const [pendingFileName, setPendingFileName] = React.useState<string | null>(
+    null,
+  );
   const [pendingData, setPendingData] = React.useState<DataProps>([]);
 
   const {
@@ -119,7 +121,10 @@ export function SettingsModal({
   };
 
   const handleImportComplete = () => {
-    const sanitizedData = getSanitizedData({ data }) as Array<{ name?: unknown; corporation?: unknown }>;
+    const sanitizedData = getSanitizedData({ data }) as Array<{
+      name?: unknown;
+      corporation?: unknown;
+    }>;
     const formattedData: DataProps = sanitizedData
       .map((item) => ({
         name: String(item.name ?? ""),
@@ -130,7 +135,7 @@ export function SettingsModal({
           self.findIndex(
             (itemSelf) =>
               itemSelf.name === item.name &&
-              item.corporation === itemSelf.corporation
+              item.corporation === itemSelf.corporation,
           ) === pos
         );
       });
@@ -148,7 +153,7 @@ export function SettingsModal({
       onParse({ file });
       setStep("map");
     },
-    [onParse]
+    [onParse],
   );
 
   return (
@@ -221,7 +226,8 @@ export function SettingsModal({
                   className="w-full h-full px-4 text-right bg-transparent outline-none"
                   style={{
                     fontSize: "25px",
-                    color: localPrizes > 0 ? "#00953B" : "rgba(0, 149, 59, 0.5)",
+                    color:
+                      localPrizes > 0 ? "#00953B" : "rgba(0, 149, 59, 0.5)",
                     fontFamily: "Lato",
                   }}
                 />
@@ -243,7 +249,8 @@ export function SettingsModal({
                 onDrop={handleFileDrop}
                 accept={{
                   "text/csv": [".csv"],
-                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
+                  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
+                    [".xlsx"],
                   "application/vnd.ms-excel": [".xls"],
                 }}
                 maxFiles={1}
@@ -254,7 +261,7 @@ export function SettingsModal({
                     {...getRootProps()}
                     className={cn(
                       "flex flex-col items-center justify-center cursor-pointer transition-all",
-                      isDragActive && "opacity-70"
+                      isDragActive && "opacity-70",
                     )}
                     style={{
                       width: "610px",
@@ -275,7 +282,9 @@ export function SettingsModal({
                         lineHeight: "120%",
                       }}
                     >
-                      Clique aqui ou arraste um<br />arquivo .xlsx ou .csv
+                      Clique aqui ou arraste um
+                      <br />
+                      arquivo .xlsx ou .csv
                     </span>
                   </div>
                 )}
@@ -376,11 +385,8 @@ export function SettingsModal({
 
           {/* Conteúdo */}
           <div className="px-[25px] py-6">
-            <p
-              className="mb-4"
-              style={{ fontSize: "16px", color: "#575756" }}
-            >
-              Mapear campos onde determinará qual o nome e empresa do concorrente
+            <p className="mb-4" style={{ fontSize: "16px", color: "#575756" }}>
+              Associe os campos da relação:
             </p>
             <div className="grid h-[300px] w-full overflow-auto rounded-md border border-[#00953B]">
               <Table className="border-b">
@@ -425,9 +431,7 @@ export function SettingsModal({
           </div>
 
           {/* Footer com botões */}
-          <div
-            className="flex items-center justify-between px-[25px] pb-[25px]"
-          >
+          <div className="flex items-center justify-between px-[25px] pb-[25px]">
             <button
               onClick={() => {
                 onFieldsReset();
@@ -472,8 +476,7 @@ export function SettingsModal({
   );
 }
 
-interface PreviewTableHeadProps
-  extends React.ThHTMLAttributes<HTMLTableCellElement> {
+interface PreviewTableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
   field: { label: string; value: string; required?: boolean };
   onFieldChange: (props: { value: string; required?: boolean }) => void;
   onFieldToggle: (props: { value: string; checked: boolean }) => void;
@@ -517,7 +520,11 @@ function PreviewTableHead({
             {field.label}
           </Label>
         </div>
-        <ArrowLeftIcon className="size-4" style={{ color: "#00953B" }} aria-hidden="true" />
+        <ArrowLeftIcon
+          className="size-4"
+          style={{ color: "#00953B" }}
+          aria-hidden="true"
+        />
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -555,13 +562,13 @@ function PreviewTableHead({
                             "mr-2 size-4",
                             currentFieldMapping === fm
                               ? "opacity-100"
-                              : "opacity-0"
+                              : "opacity-0",
                           )}
                           style={{ color: "#00953B" }}
                         />
                         <span className="line-clamp-1">{fm}</span>
                       </CommandItem>
-                    )
+                    ),
                   )}
                 </CommandGroup>
               </CommandList>
